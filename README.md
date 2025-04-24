@@ -23,93 +23,48 @@ The scraper is registered as an MCP Tool and can be called programmatically from
 
 ## Setup Instructions
 
-1. Install uv package manager:
+If you’ve cloned this repository, follow these steps to run the project locally.
 
-```
+### Prerequisites
+
+Make sure you have Python 3.10+ and `uv` installed. If not, you can install `uv` with:
+
+```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-2. Create project and install dependencies:
+### Installation
 
-```
-uv init mcp-webscraper
+1. Clone the repository (if you haven’t already):
+
+```bash
+git clone https://github.com/your-username/mcp-webscraper.git
 cd mcp-webscraper
+```
+
+2. Create and activate a virtual environment using `uv`:
+
+```bash
 uv venv
 source .venv/bin/activate
-uv add "mcp[cli]" playwright nest_asyncio pydantic openai
 ```
 
-3. Create project structure:
+3. Install dependencies from the `pyproject.toml`:
 
-```
-mkdir src
-touch src/scraper_tool.py src/format_output.py .env
+```bash
+uv pip install .
 ```
 
-4. Set your .env file:
+4. Create a `.env` file at the root of the project and add your OpenAI API key:
 
 ```
 OPENAI_API_KEY=your-openai-key
 ```
 
----
+5. Run the application:
 
-## Example Usage (via n8n)
-
-You can integrate this scraper as a tool in an n8n agent with the following prompt:
-
-```
-You are an expert web scraping agent. Your task is to extract the following:
-- Title, location, price, bedrooms, bathrooms, area
-- Realtor's name, image URL, full listing link
-Return ONLY valid JSON conforming to the ListingResponse schema.
-```
-
----
-
-## Run Locally
-
-```
+```bash
 python main.py
 ```
 
-Then hit the endpoint with a tool call (query + instructions). The server will handle browser orchestration, LLM interaction, and return JSON with:
-
-```
-{
-  "title": "Apartment in Bucaramanga",
-  "price": "$1,250,000",
-  ...
-}
-```
-
----
-
-## Project Structure
-
-```
-mcp-webscraper/
-├── src/
-│   ├── scraper_tool.py     # Web scraping and LLM logic
-│   └── format_output.py    # Pydantic models
-├── .env                    # API key (not committed)
-├── main.py                 # MCP tool server
-├── README.md
-```
-
----
-
-## Future Ideas
-
-- Add support for multiple listing websites
-- Dynamic selector detection using GPT-4
-- Automatic sheet export integration
-- Memory persistence across sessions via MCP
-
----
-
-## About the Creator
-
-This project is part of my journey exploring how agents can use tools in autonomous workflows. I enjoy building things that combine data, language models, and real-world automation.
-
-If this resonates with you, let’s connect.
+This will start the MCP server and make the tool available for integration.

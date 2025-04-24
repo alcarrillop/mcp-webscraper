@@ -31,15 +31,15 @@ async def scrape_listings(query: str, instructions: str) -> ListingResponse:
             instructions=instructions
         )
     except Exception as e:
-        print(f"❌ Error during scraping: {e}")
+        print(f"Error during scraping: {e}")
         return ListingResponse(listings=[])
     finally:
-        print("🧹 Closing browser session...")
+        print("Closing browser session...")
         await scraper_agent_instance.close()
 
     return result if isinstance(result, ListingResponse) else ListingResponse(listings=[])
 
 # Run the MCP server
 if __name__ == "__main__":
-    print("🚀 Starting MCP server for Listing Scraper...")
+    print("Starting MCP server for Listing Scraper...")
     mcp.run(transport='sse')

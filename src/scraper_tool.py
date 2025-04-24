@@ -107,13 +107,13 @@ async def webscraper(scraper_agent: WebScraperAgent, target_url: str, instructio
         if not scraper_agent.playwright:
             await scraper_agent.init_browser()
 
-        print(f"🔍 Extracting content from {target_url}")
+        print(f"Extracting content from {target_url}")
         html = await scraper_agent.scrape_content(target_url)
 
-        print("🧹 Filtering relevant content...")
+        print("Filtering relevant content...")
         filtered_html = extract_listings_html(html)
 
-        print("🧠 Sending content to LLM for processing...")
+        print("Sending content to LLM for processing...")
         result: ListingResponse = await process_with_llm(
             html=filtered_html,
             instructions=instructions,
@@ -121,9 +121,9 @@ async def webscraper(scraper_agent: WebScraperAgent, target_url: str, instructio
             truncate=True
         )
 
-        print("✅ Structured data received.")
+        print("Structured data received.")
         return result
 
     except Exception as e:
-        print(f"❌ Error during scraping: {e}")
+        print(f"Error during scraping: {e}")
         return None

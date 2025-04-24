@@ -18,7 +18,7 @@ async def scrape_listings(query: str, instructions: str) -> ListingResponse:
     Returns:
         A structured ListingResponse with the extracted results.
     """
-    print(f"📥 Received scrape request for: {query}")
+    print(f"Received scrape request for: {query}")
     target_url = f"https://www.fincaraiz.com.co/arriendo/apartamentos/{query}"
 
     scraper_agent_instance = WebScraperAgent()
